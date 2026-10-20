@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neptune — Movies & Shows</title>
+<style>
+:root{--bg:#070b18;--panel:#10182b;--panel2:#16223a;--text:#f5f7ff;--muted:#aab5cf;--cyan:#63e6ff;--blue:#587bff;--line:rgba(255,255,255,.09)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 75% -15%,#203a70 0,transparent 42%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input{font:inherit}
+button{cursor:pointer}
+.topbar{height:76px;display:flex;align-items:center;gap:28px;padding:0 clamp(18px,4vw,58px);border-bottom:1px solid var(--line);background:rgba(7,11,24,.78);backdrop-filter:blur(16px);position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:24px;letter-spacing:-1px;white-space:nowrap}
+.brandmark{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,var(--cyan),var(--blue));display:grid;place-items:center;color:#07101f;font-weight:1000;box-shadow:0 0 25px #63e6ff35}
+.nav{display:flex;gap:22px;color:var(--muted);font-size:14px}.nav a{color:inherit;text-decoration:none}.nav a:hover,.nav a.active{color:white}
+.search{margin-left:auto;position:relative;max-width:290px;width:100%}.search input{width:100%;background:#10182b;border:1px solid var(--line);border-radius:12px;padding:11px 14px 11px 38px;color:white;outline:none}.search input:focus{border-color:#63e6ff88}.search span{position:absolute;left:13px;top:10px;color:var(--muted)}
+main{max-width:1500px;margin:auto;padding:28px clamp(18px,4vw,58px) 70px}
+.hero{min-height:390px;border:1px solid var(--line);border-radius:25px;overflow:hidden;position:relative;display:flex;align-items:flex-end;background:linear-gradient(90deg,rgba(5,9,21,.98) 0%,rgba(5,9,21,.82) 42%,rgba(5,9,21,.15) 100%),url('https://thumb.wikimedia.org/wikipedia/en/thumb/d/db/The_Amazing_World_of_Gumball_logo.svg/1280px-The_Amazing_World_of_Gumball_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=thumbnail') center right/contain no-repeat,#132342}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,9,21,.5),transparent 65%);pointer-events:none}
+.hero-content{position:relative;padding:clamp(25px,5vw,58px);max-width:620px;z-index:1}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:2.5px;color:var(--cyan);font-weight:800}
+h1{font-size:clamp(34px,5vw,60px);line-height:1.02;letter-spacing:-2px;margin:12px 0}
+.hero p{color:#d0d8eb;line-height:1.65;max-width:490px;margin:12px 0 22px}
+.actions{display:flex;gap:11px;flex-wrap:wrap}.btn{border:0;border-radius:11px;padding:12px 18px;font-weight:750;display:inline-flex;gap:9px;align-items:center}.primary{background:linear-gradient(135deg,var(--cyan),#8b9bff);color:#07101f}.secondary{background:#ffffff16;border:1px solid #ffffff25;color:white}.btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.section{margin-top:37px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:16px}.section h2{margin:0;font-size:22px;letter-spacing:-.5px}.section-head p{margin:5px 0 0;color:var(--muted);font-size:13px}
+.pill{border:1px solid var(--line);color:var(--muted);padding:7px 11px;border-radius:999px;font-size:12px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:17px;overflow:hidden;transition:.18s;cursor:pointer;min-width:0}.card:hover{transform:translateY(-4px);border-color:#63e6ff70;box-shadow:0 14px 32px #0004}
+.poster{height:145px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(135deg,#182d50,#11182c)}
+.poster img{width:100%;height:100%;object-fit:contain;padding:14px}.poster .poster-art{position:absolute;inset:0;display:grid;place-items:center;font-size:42px;font-weight:900;letter-spacing:-2px;color:#ffffff19;background:radial-gradient(circle at 75% 15%,#63e6ff30,transparent 40%),linear-gradient(140deg,#203b65,#10182b)}
+.poster .play{position:absolute;bottom:12px;right:12px;background:#ffffffed;color:#08101e;border-radius:50%;width:36px;height:36px;display:grid;place-items:center;font-size:14px;opacity:0;transform:scale(.9);transition:.18s}.card:hover .play{opacity:1;transform:scale(1)}
+.card-info{padding:13px 14px 15px}.card-title{font-weight:800;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{color:var(--muted);font-size:12px;margin-top:5px;display:flex;justify-content:space-between;gap:8px}
+.episode-list{display:flex;flex-direction:column;gap:8px}.episode{display:flex;align-items:center;gap:13px;padding:11px;background:#10182b;border:1px solid var(--line);border-radius:13px;cursor:pointer;text-align:left;color:white}.episode:hover{background:#17233b;border-color:#63e6ff55}.episode-num{width:36px;height:36px;flex:0 0 36px;display:grid;place-items:center;border-radius:9px;background:#223456;color:var(--cyan);font-weight:800}.episode-name{font-weight:750}.episode-sub{color:var(--muted);font-size:12px;margin-top:3px}.episode .go{margin-left:auto;color:var(--muted)}
+.empty{display:none;color:var(--muted);padding:24px 0}.footer{border-top:1px solid var(--line);padding:24px clamp(18px,4vw,58px);color:#7785a3;font-size:12px;text-align:center}
+.modal{position:fixed;inset:0;background:#030610eF;z-index:10;display:none;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modal-box{width:min(100%,1000px);background:#0b1222;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 30px 100px #0009}.modal-head{display:flex;align-items:center;padding:14px 18px;gap:14px}.modal-head strong{font-size:16px}.modal-head button{margin-left:auto;background:#ffffff14;border:0;color:white;border-radius:9px;width:36px;height:36px;font-size:20px}.player{aspect-ratio:16/9;background:#000}.player iframe{width:100%;height:100%;border:0}.modal-note{padding:12px 18px;color:var(--muted);font-size:12px}
+@media(max-width:900px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{min-height:350px;background-position:center right;background-size:auto 80%}.nav{gap:13px}}
+@media(max-width:640px){.topbar{height:auto;min-height:68px;flex-wrap:wrap;padding-top:12px;padding-bottom:12px;gap:14px}.brand{font-size:21px}.nav{order:3;width:100%;overflow:auto;padding-bottom:2px}.search{max-width:none;width:auto;flex:1}.hero{min-height:410px;background-size:auto 52%;background-position:top 20px right 5px;background-image:linear-gradient(0deg,rgba(5,9,21,.98) 0%,rgba(5,9,21,.85) 45%,rgba(5,9,21,.15) 100%),url('https://thumb.wikimedia.org/wikipedia/en/thumb/d/db/The_Amazing_World_of_Gumball_logo.svg/1280px-The_Amazing_World_of_Gumball_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=thumbnail')}.hero-content{padding:24px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.poster{height:120px}.section{margin-top:28px}h1{font-size:38px}}
+@media(max-width:360px){.cards{grid-template-columns:1fr}.poster{height:155px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brandmark">N</span> NEPTUNE</div>
+  <nav class="nav"><a class="active" href="#home">Home</a><a href="#shows">Shows</a><a href="#episodes">Episodes</a></nav>
+  <label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search Neptune…" aria-label="Search titles"></label>
+</header>
+<main id="home">
+  <section class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Featured series · Neptune picks</div>
+      <h1>The Amazing World<br>of Gumball</h1>
+      <p>Jump into the weird, chaotic world of Elmore. Browse the featured series and the episode playlist below.</p>
+      <div class="actions"><button class="btn primary" id="heroPlay">▶ Play featured episode</button><button class="btn secondary" id="heroBrowse">Browse episodes ↓</button></div>
+    </div>
+  </section>
+  <section class="section" id="shows">
+    <div class="section-head"><div><h2>Featured shows</h2><p>Pick a title to start watching.</p></div><span class="pill" id="resultCount">1 title</span></div>
+    <div class="cards" id="showCards">
+      <article class="card" data-search="the amazing world of gumball gumball cartoon animated">
+        <div class="poster"><img src="https://thumb.wikimedia.org/wikipedia/en/thumb/d/db/The_Amazing_World_of_Gumball_logo.svg/1280px-The_Amazing_World_of_Gumball_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=thumbnail" alt="The Amazing World of Gumball logo" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="poster-art" style="display:none">GUMBALL</div><span class="play">▶</span></div>
+        <div class="card-info"><div class="card-title">The Amazing World of Gumball</div><div class="meta"><span>Animation · Series</span><span>▶ Playlist</span></div></div>
+      </article>
+    </div>
+    <div class="empty" id="showEmpty">No titles match your search.</div>
+  </section>
+  <section class="section" id="episodes">
+    <div class="section-head"><div><h2>Episodes & playlist</h2><p>Play an episode in the built-in YouTube player.</p></div><span class="pill">8 episodes</span></div>
+    <div class="episode-list" id="episodeList">
+      <button class="episode" data-title="The Awkwardness" data-id="GyQzh3iih4E"><span class="episode-num">01</span><span><div class="episode-name">The Awkwardness</div><div class="episode-sub">The Amazing World of Gumball · Episode</div></span><span class="go">▶</span></button>
+      <button class="episode" data-title="The Factory" data-id="uBpBbuxd0GQ"><span class="episode-num">02</span><span><div class="episode-name">The Factory</div><div class="episode-sub">The Amazing World of Gumball · Episode</div></span><span class="go">▶</span></button>
+      <button class="episode" data-title="The Bus" data-id="M378PDAkDgM"><span class="episode-num">03</span><span><div class="episode-name">The Bus</div><div class="episode-sub">The Amazing World of Gumball · Episode</div></span><span class="go">▶</span></button>
+      <button class="episode" data-title="The Bros" data-id="bUGudiyGMl4"><span class="episode-num">04</span><span><div class="episode-name">The Bros</div><div class="episode-sub">The Amazing World of Gumball · Episode</div></span><span class="go">▶</span></button>
+      <button class="episode" data-title="The Law" data-id="tqb1LjUZ_Fo"><span class="episode-num">05</span><span><div class="episode-name">The Law</div><div class="episode-sub">The Amazing World of Gumball · Episode</div></span><span class="go">▶</span></button>
+      <button class="episode" data-title="The Joy" data-id="FJKEt9DgFTk"><span class="episode-num">06</span><span><div class="episode-name">The Joy</div><div class="episode-sub">The Amazing World of Gumball · Episode</div></span><span class="go">▶</span></button>
+      <button class="episode" data-title="The Coach" data-id="xy7pyA7Ypjk"><span class="episode-num">07</span><span><div class="episode-name">The Coach</div><div class="episode-sub">The Amazing World of Gumball · Episode</div></span><span class="go">▶</span></button>
+      <button class="episode" data-title="The Diary" data-id="yygEDwV8ilM"><span class="episode-num">08</span><span><div class="episode-name">The Diary</div><div class="episode-sub">The Amazing World of Gumball · Episode</div></span><span class="go">▶</span></button>
+    </div>
+    <div class="empty" id="episodeEmpty">No episodes match your search.</div>
+  </section>
+</main>
+<footer class="footer">NEPTUNE · A personal streaming-style interface. Videos are played from YouTube and remain subject to YouTube availability and embed permissions.</footer>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Video player">
+  <div class="modal-box"><div class="modal-head"><strong id="modalTitle">Now playing</strong><button id="closeModal" aria-label="Close player">×</button></div><div class="player" id="player"></div><div class="modal-note">Playback is provided by YouTube. If an episode cannot play here, use the YouTube player’s “Watch on YouTube” option.</div></div>
+</div>
+<script>
+const modal=document.getElementById('modal'),player=document.getElementById('player'),modalTitle=document.getElementById('modalTitle');
+function playVideo(id,title){modalTitle.textContent=title;player.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+encodeURIComponent(id)+'?autoplay=1&rel=0" title="'+title.replace(/"/g,'&quot;')+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';modal.classList.add('open');document.body.style.overflow='hidden'}
+function closePlayer(){modal.classList.remove('open');player.innerHTML='';document.body.style.overflow=''}
+document.querySelectorAll('.episode').forEach(btn=>btn.addEventListener('click',()=>playVideo(btn.dataset.id,btn.dataset.title)));
+document.querySelector('.card').addEventListener('click',()=>playVideo('GyQzh3iih4E','The Awkwardness'));
+document.getElementById('heroPlay').addEventListener('click',()=>playVideo('GyQzh3iih4E','The Awkwardness'));
+document.getElementById('heroBrowse').addEventListener('click',()=>document.getElementById('episodes').scrollIntoView({behavior:'smooth'}));
+document.getElementById('closeModal').addEventListener('click',closePlayer);
+modal.addEventListener('click',e=>{if(e.target===modal)closePlayer()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePlayer()});
+document.getElementById('search').addEventListener('input',e=>{
+ const q=e.target.value.trim().toLowerCase();let showCount=0,epCount=0;
+ document.querySelectorAll('#showCards .card').forEach(card=>{const ok=card.dataset.search.includes(q);card.style.display=ok?'':'none';if(ok)showCount++});
+ document.querySelectorAll('.episode').forEach(ep=>{const ok=(ep.dataset.title+' the amazing world of gumball').toLowerCase().includes(q);ep.style.display=ok?'flex':'none';if(ok)epCount++});
+ document.getElementById('resultCount').textContent=showCount+' title'+(showCount===1?'':'s');
+ document.getElementById('showEmpty').style.display=showCount?'none':'block';
+ document.getElementById('episodeEmpty').style.display=epCount?'none':'block';
+});
+</script>
+</body>
+</html>
