@@ -28,7 +28,7 @@ h1{font-size:clamp(34px,5vw,60px);line-height:1.02;letter-spacing:-2px;margin:12
 .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:17px;overflow:hidden;transition:.18s;cursor:pointer;min-width:0}.card:hover{transform:translateY(-4px);border-color:#63e6ff70;box-shadow:0 14px 32px #0004}
 .poster{height:145px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(135deg,#182d50,#11182c)}
-.poster img{width:100%;height:100%;object-fit:contain;padding:14px}.poster .poster-art{position:absolute;inset:0;display:grid;place-items:center;font-size:42px;font-weight:900;letter-spacing:-2px;color:#ffffff19;background:radial-gradient(circle at 75% 15%,#63e6ff30,transparent 40%),linear-gradient(140deg,#203b65,#10182b)}
+.poster img{width:100%;height:100%;object-fit:contain;padding:14px}.movie-poster img{object-fit:cover;padding:0}.poster .poster-art{position:absolute;inset:0;display:grid;place-items:center;font-size:42px;font-weight:900;letter-spacing:-2px;color:#ffffff19;background:radial-gradient(circle at 75% 15%,#63e6ff30,transparent 40%),linear-gradient(140deg,#203b65,#10182b)}
 .poster .play{position:absolute;bottom:12px;right:12px;background:#ffffffed;color:#08101e;border-radius:50%;width:36px;height:36px;display:grid;place-items:center;font-size:14px;opacity:0;transform:scale(.9);transition:.18s}.card:hover .play{opacity:1;transform:scale(1)}
 .card-info{padding:13px 14px 15px}.card-title{font-weight:800;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{color:var(--muted);font-size:12px;margin-top:5px;display:flex;justify-content:space-between;gap:8px}
 .episode-list{display:flex;flex-direction:column;gap:8px}.episode{display:flex;align-items:center;gap:13px;padding:11px;background:#10182b;border:1px solid var(--line);border-radius:13px;cursor:pointer;text-align:left;color:white}.episode:hover{background:#17233b;border-color:#63e6ff55}.episode-num{width:36px;height:36px;flex:0 0 36px;display:grid;place-items:center;border-radius:9px;background:#223456;color:var(--cyan);font-weight:800}.episode-name{font-weight:750}.episode-sub{color:var(--muted);font-size:12px;margin-top:3px}.episode .go{margin-left:auto;color:var(--muted)}
@@ -42,7 +42,7 @@ h1{font-size:clamp(34px,5vw,60px);line-height:1.02;letter-spacing:-2px;margin:12
 <body>
 <header class="topbar">
   <div class="brand"><span class="brandmark">N</span> NEPTUNE</div>
-  <nav class="nav"><a class="active" href="#home">Home</a><a href="#shows">Shows</a><a href="#episodes">Episodes</a></nav>
+  <nav class="nav"><a class="active" href="#home">Home</a><a href="#shows">Shows</a><a href="#movies">Movies</a><a href="#episodes">Episodes</a></nav>
   <label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search Neptune…" aria-label="Search titles"></label>
 </header>
 <main id="home">
@@ -63,6 +63,65 @@ h1{font-size:clamp(34px,5vw,60px);line-height:1.02;letter-spacing:-2px;margin:12
       </article>
     </div>
     <div class="empty" id="showEmpty">No titles match your search.</div>
+  </section>
+
+  <section class="section" id="movies">
+    <div class="section-head"><div><h2>Movies</h2><p>Your movie collection. Select a poster to play its linked video.</p></div><span class="pill" id="movieCount">13 movies</span></div>
+    <div class="cards" id="movieCards">
+      <article class="card movie-card" data-search="the spongebob movie spongebob sponge bob animation">
+        <div class="poster movie-poster"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXYugQwR4xgWqeZokjwjMwEtLrHIeRUKRRjwjxROLFTUk4ClAP8l43kKcnbsw-cCUEYGogKQ&s=10" alt="The SpongeBob Movie poster" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="poster-art" style="display:none">SPONGEBOB</div><span class="play">▶</span></div>
+        <div class="card-info"><div class="card-title">The SpongeBob Movie</div><div class="meta"><span>Animation</span><span>▶ Play</span></div></div>
+      </article>
+      <article class="card movie-card" data-search="cloudy with a chance of meatballs 2 cloudy meatballs animation">
+        <div class="poster movie-poster"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3lkFQVLLPJazXSNIksrs8PFeRr9YctuYhbDG-WiOQIccDtSZvPMmSTKaRTJ6tinCaE77zrA&s=10" alt="Cloudy with a Chance of Meatballs 2 poster" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="poster-art" style="display:none">CLOUDY 2</div><span class="play">▶</span></div>
+        <div class="card-info"><div class="card-title">Cloudy with a Chance of Meatballs 2</div><div class="meta"><span>Animation</span><span>▶ Play</span></div></div>
+      </article>
+      <article class="card movie-card" data-search="matilda 1996 family fantasy">
+        <div class="poster movie-poster"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhio3TBJF_yUyoXj_yWBns771D_wIm7po-QARy8botjwAEa4N9YbUtB9tzVeB0oyqfWLyS&s=10" alt="Matilda (1996) poster" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="poster-art" style="display:none">MATILDA</div><span class="play">▶</span></div>
+        <div class="card-info"><div class="card-title">Matilda (1996)</div><div class="meta"><span>Family · Fantasy</span><span>▶ Play</span></div></div>
+      </article>
+      <article class="card movie-card" data-search="the longest yard 2005 comedy sports football">
+        <div class="poster movie-poster"><img src="https://thumbnails.cbsig.net/CBS_Production_Entertainment_VMS/2023/08/11/2254288451861/TLNYD_US_2005_SA_16x9_1920x1080_2308553_1920x1080.jpg" alt="The Longest Yard (2005) image" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="poster-art" style="display:none">THE LONGEST YARD</div><span class="play">▶</span></div>
+        <div class="card-info"><div class="card-title">The Longest Yard (2005)</div><div class="meta"><span>Comedy · Sports</span><span>▶ Play</span></div></div>
+      </article>
+      <article class="card movie-card" data-search="rise of the guardians rise guardians fantasy animation">
+        <div class="poster movie-poster"><img src="https://upload.wikimedia.org/wikipedia/en/9/92/Rise_of_the_Guardians_poster.jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original" alt="Rise of the Guardians poster" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="poster-art" style="display:none">GUARDIANS</div><span class="play">▶</span></div>
+        <div class="card-info"><div class="card-title">Rise of the Guardians</div><div class="meta"><span>Fantasy · Animation</span><span>▶ Play</span></div></div>
+      </article>
+      <article class="card movie-card" data-search="the journey adventure drama">
+        <div class="poster movie-poster"><img src="https://m.media-amazon.com/images/M/MV5BMjA5MTE1MjQyNV5BMl5BanBnXkFtZTcwODI4NDMwNw@@._V1_FMjpg_UX1000_.jpg" alt="The Journey poster" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="poster-art" style="display:none">THE JOURNEY</div><span class="play">▶</span></div>
+        <div class="card-info"><div class="card-title">The Journey</div><div class="meta"><span>Movie</span><span>▶ Play</span></div></div>
+      </article>
+      <article class="card movie-card" data-search="free birds turkey animation comedy">
+        <div class="poster movie-poster"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGofnxLA7J20zyQ70CfwNgbITYz_5qvtmbHL_0x94ArweZEQEknW9KWpncDoGFBf5ZGuLBitLKu7sjtfirQpIENhYn503j6p75vivOlBQ&s=10" alt="Free Birds poster" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="poster-art" style="display:none">FREE BIRDS</div><span class="play">▶</span></div>
+        <div class="card-info"><div class="card-title">Free Birds</div><div class="meta"><span>Animation · Comedy</span><span>▶ Play</span></div></div>
+      </article>
+      <article class="card movie-card" data-search="you've got mail you got mail romantic comedy tom hanks meg ryan">
+        <div class="poster movie-poster"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3KhjgKTXaxzfv-hiVHWd5zoHpMVVxHxGJEXNw4SkusuCZmhuE7_PhVGR-j1rQBJ22IV9r7VN-cAGIoRlNQyFH70jEw8thDRecSZ9q2A&s=10" alt="You've Got Mail poster" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="poster-art" style="display:none">YOU'VE GOT MAIL</div><span class="play">▶</span></div>
+        <div class="card-info"><div class="card-title">You've Got Mail</div><div class="meta"><span>Romantic Comedy</span><span>▶ Play</span></div></div>
+      </article>
+      <article class="card movie-card" data-search="bumblebee transformers action science fiction sci-fi">
+        <div class="poster movie-poster"><img src="https://m.media-amazon.com/images/M/MV5BMjUwNjU5NDMyNF5BMl5BanBnXkFtZTgwNzgxNjM2NzM@._V1_.jpg" alt="Bumblebee poster" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="poster-art" style="display:none">BUMBLEBEE</div><span class="play">▶</span></div>
+        <div class="card-info"><div class="card-title">Bumblebee</div><div class="meta"><span>Action · Sci-Fi</span><span>▶ Play</span></div></div>
+      </article>
+      <article class="card movie-card" data-search="a dog's way home dogs adventure family">
+        <div class="poster movie-poster"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7MbePoZ_qxYsLiYt1Q3SBXGB6WOfyc-pqt8aU4emwj4MGGblJB12Hv5aRvmOr6lhH4DbF&s=10" alt="A Dog's Way Home poster" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="poster-art" style="display:none">A DOG'S WAY HOME</div><span class="play">▶</span></div>
+        <div class="card-info"><div class="card-title">A Dog's Way Home</div><div class="meta"><span>Family · Adventure</span><span>▶ Play</span></div></div>
+      </article>
+      <article class="card movie-card" data-search="pinocchio family fantasy classic">
+        <div class="poster movie-poster"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT606MbUHVNmVbDDCu7zd-lJDFzUU3mQSKIXXWD_jb2pzkch8FuT0PRmBkETyfaucDVFVOJ&s=10" alt="Pinocchio poster" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="poster-art" style="display:none">PINOCCHIO</div><span class="play">▶</span></div>
+        <div class="card-info"><div class="card-title">Pinocchio</div><div class="meta"><span>Family · Fantasy</span><span>▶ Play</span></div></div>
+      </article>
+      <article class="card movie-card" data-search="a simple wish family fantasy">
+        <div class="poster movie-poster"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgal8P2pnrc45Z7ftBdfCv_IWFzlLFXLtASr7haF4yc38orUcVO0jZbuINy12_-DBJqf4s&s=10" alt="A Simple Wish poster" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="poster-art" style="display:none">A SIMPLE WISH</div><span class="play">▶</span></div>
+        <div class="card-info"><div class="card-title">A Simple Wish</div><div class="meta"><span>Family · Fantasy</span><span>▶ Play</span></div></div>
+      </article>
+      <article class="card movie-card" data-search="uglydolls ugly dolls animation music comedy">
+        <div class="poster movie-poster"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_ptb_75X2c5GOSlx7X4dCzcvvOMDMpHRu_b-L8bwBWMigrDkAvCd2ka62wsMn7Wo8akBS&s=10" alt="UglyDolls poster" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="poster-art" style="display:none">UGLYDOLLS</div><span class="play">▶</span></div>
+        <div class="card-info"><div class="card-title">UglyDolls</div><div class="meta"><span>Animation · Music</span><span>▶ Play</span></div></div>
+      </article>
+    </div>
+    <div class="empty" id="movieEmpty">No movies match your search.</div>
   </section>
   <section class="section" id="episodes">
     <div class="section-head"><div><h2>Episodes & playlist</h2><p>Play an episode in the built-in YouTube player.</p></div><span class="pill">8 episodes</span></div>
@@ -94,12 +153,20 @@ document.getElementById('heroBrowse').addEventListener('click',()=>document.getE
 document.getElementById('closeModal').addEventListener('click',closePlayer);
 modal.addEventListener('click',e=>{if(e.target===modal)closePlayer()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closePlayer()});
+document.querySelectorAll('.movie-card').forEach(card=>card.addEventListener('click',()=>playVideo(card.dataset.video,card.querySelector('.card-title').textContent)));
+document.querySelectorAll('.movie-card').forEach((card,i)=>{
+ const ids=['O1MSGBhXDOA','_dmxlefoYvk','_F8kU1vb_rk','uGJv_zSRiR0','FHw6pivOASg','iin0i9_W4a4','dd8rHLkQ1Ps','EdJJHLK8Luk','nzn1m-hbPYw','2mMQd11UI1s','a_uaXlEZq9E','gnobjwbA_7w','ixbkzsNCgV8'];
+ card.dataset.video=ids[i];
+});
 document.getElementById('search').addEventListener('input',e=>{
- const q=e.target.value.trim().toLowerCase();let showCount=0,epCount=0;
+ const q=e.target.value.trim().toLowerCase();let showCount=0,movieCount=0,epCount=0;
  document.querySelectorAll('#showCards .card').forEach(card=>{const ok=card.dataset.search.includes(q);card.style.display=ok?'':'none';if(ok)showCount++});
+ document.querySelectorAll('#movieCards .movie-card').forEach(card=>{const ok=(card.dataset.search+' '+card.querySelector('.card-title').textContent).toLowerCase().includes(q);card.style.display=ok?'':'none';if(ok)movieCount++});
  document.querySelectorAll('.episode').forEach(ep=>{const ok=(ep.dataset.title+' the amazing world of gumball').toLowerCase().includes(q);ep.style.display=ok?'flex':'none';if(ok)epCount++});
  document.getElementById('resultCount').textContent=showCount+' title'+(showCount===1?'':'s');
+ document.getElementById('movieCount').textContent=movieCount+' movie'+(movieCount===1?'':'s');
  document.getElementById('showEmpty').style.display=showCount?'none':'block';
+ document.getElementById('movieEmpty').style.display=movieCount?'none':'block';
  document.getElementById('episodeEmpty').style.display=epCount?'none':'block';
 });
 </script>
